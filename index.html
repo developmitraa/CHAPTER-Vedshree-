@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Vedshree</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        nav button:hover, nav button.active {
+            color: var(--primary);
+            background-color: var(--secondary);
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 { font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-dark); }
+        h2 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        p { margin-bottom: 1rem; color: var(--text-light); }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 { color: var(--primary); }
+
+        /* Grid Layouts */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Buttons & Links */
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover { background-color: var(--primary-hover); }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Lists */
+        ul.chapter-list {
+            list-style: none;
+        }
+
+        ul.chapter-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-btn {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            padding: 0.8rem 1rem;
+            width: 100%;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-btn:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+        }
+
+        /* Chapter Detail View */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .resource-card a {
+            display: block;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem;
+            border: 1px dashed var(--primary);
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .resource-card a:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .back-btn:hover { color: var(--primary); }
+
+        /* Timetable Generator Form */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input[type="number"], .form-group input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Timetable Output */
+        .timetable-output {
+            margin-top: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+        .timetable-row {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--white);
+        }
+        .timetable-row:last-child { border-bottom: none; }
+        .time-col {
+            padding: 1rem;
+            background: var(--secondary);
+            font-weight: bold;
+            width: 150px;
+            border-right: 1px solid var(--border);
+        }
+        .task-col {
+            padding: 1rem;
+            flex: 1;
+        }
+        .break-row { background-color: #fef3c7; }
+        .break-row .time-col { background-color: #fde68a; }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: #9ca3af;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; align-items: flex-start; }
+            nav { width: 100%; justify-content: space-between; overflow-x: auto; padding-bottom: 0.5rem;}
+            nav button { flex: 1; text-align: center; white-space: nowrap; }
+            .timetable-row { flex-direction: column; }
+            .time-col { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="app.navigate('home')">
+                📚 Chapter Vedshree
+            </div>
+            <nav id="main-nav">
+                <button onclick="app.navigate('home')" data-target="home" class="active">Home</button>
+                <button onclick="app.navigate('class11')" data-target="class11">Class 11</button>
+                <button onclick="app.navigate('class12')" data-target="class12">Class 12</button>
+                <button onclick="app.navigate('all-chapters')" data-target="all-chapters">All Chapters</button>
+                <button onclick="app.navigate('timetable')" data-target="timetable">✨ AI Timetable</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home View -->
+        <section id="view-home" class="view-section active">
+            <div class="hero">
+                <h1>Welcome to Chapter Vedshree</h1>
+                <p>Your ultimate study companion for Maharashtra Board HSC (Class 11 & 12).<br>Access structured chapters, notes, papers, and generate personalized study schedules.</p>
+                <div style="max-width: 400px; margin: 0 auto; display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button class="btn" onclick="app.navigate('class11')">Explore Class 11</button>
+                    <button class="btn btn-outline" onclick="app.navigate('class12')">Explore Class 12</button>
+                </div>
+            </div>
+
+            <h2>Subjects Offered</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <h3>🧪 Chemistry</h3>
+                    <p>Physical, Inorganic, and Organic chemistry modules tailored to the syllabus.</p>
+                </div>
+                <div class="card">
+                    <h3>📐 Mathematics</h3>
+                    <p>Maths I & II covering calculus, geometry, algebra, and probability mechanics.</p>
+                </div>
+                <div class="card">
+                    <h3>🧬 Biology</h3>
+                    <p>Botany and Zoology concepts mapped directly to MH Board requirements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Class 11 View -->
+        <section id="view-class11" class="view-section">
+            <h2>Class 11 HSC Curriculum</h2>
+            <div id="class11-content" class="grid-cards">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- Class 12 View -->
+        <section id="view-class12" class="view-section">
+            <h2>Class 12 HSC Board Curriculum</h2>
+            <div id="class12-content" class="grid-cards">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- All Chapters View -->
+        <section id="view-all-chapters" class="view-section">
+            <h2>Complete Syllabus Index</h2>
+            <div id="all-chapters-content">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- Chapter Detail View -->
+        <section id="view-chapter" class="view-section">
+            <button class="back-btn" onclick="app.goBack()">
+                ⬅ Back to Subject
+            </button>
+            <div class="card">
+                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--border); padding-bottom: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <span id="detail-badge" style="background: var(--primary); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; margin-bottom: 0.5rem; display: inline-block;"></span>
+                        <h2 id="detail-title" style="border: none; padding: 0; margin: 0;"></h2>
+                    </div>
+                </div>
+                <p>Select a resource below. All links are active and will redirect you to search repositories for the respective material to ensure functional access.</p>
+                
+                <div class="resource-grid" id="resource-container">
+                    <!-- Resources populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Timetable Generator View -->
+        <section id="view-timetable" class="view-section">
+            <h2>✨ AI Study Timetable Generator</h2>
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <p style="margin-bottom: 1.5rem;">Enter your details below to generate a dynamic, optimized daily study schedule.</p>
+                
+                <div class="form-group">
+                    <label>How many hours can you study today?</label>
+                    <input type="number" id="tt-hours" min="1" max="14" value="6" placeholder="e.g., 6">
+                </div>
+
+                <div class="form-group">
+                    <label>Select Subjects for Today:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" class="tt-subject" value="Chemistry" checked> Chemistry</label>
+                        <label class="checkbox-item"><input type="checkbox" class="tt-subject" value="Mathematics" checked> Mathematics</label>
+                        <label class="checkbox-item"><input type="checkbox" class="tt-subject" value="Biology"> Biology</label>
+                        <label class="checkbox-item"><input type="checkbox" class="tt-subject" value="Revision"> General Revision</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Daily Goal / Focus Topic (Optional):</label>
+                    <input type="text" id="tt-goal" placeholder="e.g., Complete Organic Chemistry MCQs">
+                </div>
+
+                <button class="btn" onclick="app.generateTimetable()">Generate My Schedule 🚀</button>
+            </div>
+
+            <div id="timetable-result" class="timetable-output">
+                <!-- Generated timetable injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Chapter Vedshree. Organised study materials for MH Board Students.</p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #6b7280;"><i>Powered by developmitraa@gmail.com</i></p>
+    </footer>
+
+    <script>
+        // Data Structure for MH Board Syllabus (Representative extensive sample)
+        const syllabusData = {
+            "11": {
+                "Chemistry": [
+                    "Some Basic Concepts of Chemistry", "Introduction to Analytical Chemistry",
+                    "Basic Analytical Techniques", "Structure of Atom", "Chemical Bonding",
+                    "Redox Reactions", "Modern Periodic Table", "Elements of Group 1 and 2",
+                    "Elements of Group 13, 14 and 15", "States of Matter", "Adsorption and Colloids",
+                    "Chemical Equilibrium", "Nuclear Chemistry and Radioactivity", "Basic Principles of Organic Chemistry",
+                    "Hydrocarbons", "Chemistry in Everyday Life"
+                ],
+                "Mathematics": [
+                    "Angle and its Measurement", "Trigonometry - I", "Trigonometry - II",
+                    "Determinants and Matrices", "Straight Line", "Circle", "Conic Sections",
+                    "Measures of Dispersion", "Probability", "Complex Numbers", "Sequences and Series",
+                    "Permutations and Combinations", "Mathematical Induction and Binomial Theorem",
+                    "Sets and Relations", "Functions", "Limits", "Continuity", "Differentiation"
+                ],
+                "Biology": [
+                    "Living World", "Systematics of Living Organisms", "Kingdom Plantae",
+                    "Kingdom Animalia", "Cell Structure and Organization", "Biomolecules",
+                    "Cell Division", "Plant Tissues and Anatomy", "Morphology of Flowering Plants",
+                    "Animal Tissue", "Study of Animal Type: Cockroach", "Photosynthesis",
+                    "Respiration and Energy Transfer", "Human Nutrition", "Excretion and Osmoregulation",
+                    "Skeleton and Movement"
+                ]
+            },
+            "12": {
+                "Chemistry": [
+                    "Solid State", "Solutions", "Ionic Equilibria", "Chemical Thermodynamics",
+                    "Electrochemistry", "Chemical Kinetics", "Elements of Groups 16, 17 and 18",
+                    "Transition and Inner Transition Elements", "Coordination Compounds",
+                    "Halogen Derivatives", "Alcohols, Phenols and Ethers", "Aldehydes, Ketones and Carboxylic Acids",
+                    "Amines", "Biomolecules", "Introduction to Polymer Chemistry", "Green Chemistry and Nanochemistry"
+                ],
+                "Mathematics": [
+                    "Mathematical Logic", "Matrices", "Trigonometric Functions",
+                    "Pair of Straight Lines", "Vectors", "Line and Plane", "Linear Programming",
+                    "Differentiation", "Applications of Derivatives", "Indefinite Integration",
+                    "Definite Integration", "Application of Definite Integration",
+                    "Differential Equations", "Probability Distributions", "Binomial Distribution"
+                ],
+                "Biology": [
+                    "Reproduction in Lower and Higher Plants", "Reproduction in Lower and Higher Animals",
+                    "Inheritance and Variation", "Molecular Basis of Inheritance",
+                    "Origin and Evolution of Life", "Plant Water Relations", "Plant Growth and Mineral Nutrition",
+                    "Respiration and Circulation", "Control and Co-ordination", "Human Health and Diseases",
+                    "Enhancement of Food Production", "Biotechnology", "Organisms and Populations",
+                    "Ecosystems and Energy Flow", "Biodiversity, Conservation and Environmental Issues"
+                ]
+            }
+        };
+
+        const app = {
+            previousViewOpts: null,
+
+            init() {
+                this.renderClassContents('11');
+                this.renderClassContents('12');
+                this.renderAllChapters();
+            },
+
+            navigate(viewId, pushHistory = true) {
+                // Update Nav UI
+                document.querySelectorAll('#main-nav button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if(btn.dataset.target === viewId) btn.classList.add('active');
+                });
+
+                // Update Views
+                document.querySelectorAll('.view-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`view-${viewId}`).classList.add('active');
+                window.scrollTo(0,0);
+            },
+
+            // Creates external actual search links to simulate functional downloads
+            createSearchLink(cls, sub, chap, type) {
+                const query = `Maharashtra Board Class ${cls} ${sub} ${chap} ${type} filetype:pdf`;
+                return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            },
+
+            openChapter(cls, subject, chapter) {
+                this.previousViewOpts = `class${cls}`; // Simple back logic
+                
+                document.getElementById('detail-badge').innerText = `Class ${cls} • ${subject}`;
+                document.getElementById('detail-title').innerText = chapter;
+
+                const resources = [
+                    { title: "NCERT/Textbook", type: "Textbook PDF", icon: "📘" },
+                    { title: "Question Papers", type: "Previous Year Question Paper PDF", icon: "📄" },
+                    { title: "Sample Papers", type: "Sample Paper PDF", icon: "📝" },
+                    { title: "Important Questions", type: "Important Questions PDF", icon: "⭐" },
+                    { title: "Solved Examples", type: "Solved Examples Solutions PDF", icon: "✅" }
+                ];
+
+                const container = document.getElementById('resource-container');
+                container.innerHTML = '';
+
+                resources.forEach(res => {
+                    const url = this.createSearchLink(cls, subject, chapter, res.type);
+                    container.innerHTML += `
+                        <div class="resource-card">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">${res.icon}</div>
+                            <h4>${res.title}</h4>
+                            <a href="${url}" target="_blank" rel="noopener noreferrer">Access Link ↗</a>
+                        </div>
+                    `;
+                });
+
+                // Remove nav active states
+                document.querySelectorAll('#main-nav button').forEach(btn => btn.classList.remove('active'));
+                
+                // Show view
+                document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+                document.getElementById('view-chapter').classList.add('active');
+                window.scrollTo(0,0);
+            },
+
+            goBack() {
+                if(this.previousViewOpts) {
+                    this.navigate(this.previousViewOpts);
+                } else {
+                    this.navigate('home');
+                }
+            },
+
+            renderClassContents(cls) {
+                const container = document.getElementById(`class${cls}-content`);
+                let html = '';
+                
+                for (const [subject, chapters] of Object.entries(syllabusData[cls])) {
+                    let subIcon = subject === 'Chemistry' ? '🧪' : subject === 'Mathematics' ? '📐' : '🧬';
+                    let chapterListHtml = chapters.map(chap => 
+                        `<li>
+                            <button class="chapter-btn" onclick="app.openChapter('${cls}', '${subject}', '${chap.replace(/'/g, "\\'")}')">
+                                <span>📄 ${chap}</span>
+                                <span>→</span>
+                            </button>
+                        </li>`
+                    ).join('');
+
+                    html += `
+                        <div class="card" style="padding: 1rem;">
+                            <h3 style="border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">${subIcon} ${subject}</h3>
+                            <ul class="chapter-list" style="margin-top: 1rem; max-height: 400px; overflow-y: auto; padding-right: 0.5rem;">
+                                ${chapterListHtml}
+                            </ul>
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            },
+
+            renderAllChapters() {
+                const container = document.getElementById('all-chapters-content');
+                let html = '';
+
+                ['11', '12'].forEach(cls => {
+                    html += `<h3 style="margin-top: 2rem; background: var(--secondary); padding: 0.5rem; text-align:center; border-radius:4px;">Class ${cls}</h3><div class="grid-cards" style="margin-top:1rem;">`;
+                    for (const [subject, chapters] of Object.entries(syllabusData[cls])) {
+                        let subIcon = subject === 'Chemistry' ? '🧪' : subject === 'Mathematics' ? '📐' : '🧬';
+                         let chapterListHtml = chapters.map(chap => 
+                            `<div style="padding: 0.5rem; border-bottom: 1px solid var(--border);">
+                                <a href="javascript:void(0)" onclick="app.openChapter('${cls}', '${subject}', '${chap.replace(/'/g, "\\'")}')" style="color: var(--text-dark); text-decoration: none; display:block;">
+                                    • ${chap}
+                                </a>
+                            </div>`
+                        ).join('');
+
+                        html += `
+                            <div class="card" style="padding: 1rem;">
+                                <h4 style="color: var(--primary); margin-bottom:0.5rem;">${subIcon} ${subject}</h4>
+                                <div style="font-size: 0.9rem; max-height: 250px; overflow-y:auto;">
+                                    ${chapterListHtml}
+                                </div>
+                            </div>
+                        `;
+                    }
+                    html += `</div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            generateTimetable() {
+                const hours = parseFloat(document.getElementById('tt-hours').value);
+                const subjectsObj = document.querySelectorAll('.tt-subject:checked');
+                const goal = document.getElementById('tt-goal').value;
+                const resultBlock = document.getElementById('timetable-result');
+                
+                if (isNaN(hours) || hours <= 0 || hours > 24) {
+                    alert("Please enter a valid number of study hours (1-24).");
+                    return;
+                }
+
+                if (subjectsObj.length === 0) {
+                    alert("Please select at least one subject.");
+                    return;
+                }
+
+                const subjects = Array.from(subjectsObj).map(cb => cb.value);
+                
+                // Generator Logic:
+                // Assume start time is 9:00 AM (09:00) for simplicity.
+                let startTime = new Date();
+                startTime.setHours(9, 0, 0, 0); 
+                
+                // Calculate time allocation
+                let totalMin = hours * 60;
+                // Subtract 15 min break for every ~1.5 hours of study
+                let totalBreaks = Math.floor(hours / 1.5);
+                let breakTimeTotal = totalBreaks * 15;
+                let actualStudyMin = totalMin - breakTimeTotal;
+                
+                let minPerSubject = Math.floor(actualStudyMin / subjects.length);
+                
+                let scheduleHtml = `
+                    <div style="background: var(--primary); color: white; padding: 1rem; text-align: center;">
+                        <h3 style="color:white; margin:0;">Your Optimized Study Schedule</h3>
+                        ${goal ? `<p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color:#e0f2fe;">Goal: ${goal}</p>` : ''}
+                    </div>
+                `;
+
+                let currentTime = new Date(startTime);
+                let subjectIndex = 0;
+                let studyAccumulator = 0;
+
+                const formatTime = (date) => {
+                    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                };
+
+                while (totalMin > 0) {
+                    // Check if a break is needed (every ~90 mins of continuous study)
+                    if (studyAccumulator >= 90 && breakTimeTotal > 0) {
+                        let breakEnd = new Date(currentTime.getTime() + 15 * 60000);
+                        scheduleHtml += `
+                            <div class="timetable-row break-row">
+                                <div class="time-col">☕ ${formatTime(currentTime)} - ${formatTime(breakEnd)}</div>
+                                <div class="task-col"><strong>Short Break</strong> - Refresh, hydrate, stretch.</div>
+                            </div>
+                        `;
+                        currentTime = breakEnd;
+                        totalMin -= 15;
+                        breakTimeTotal -= 15;
+                        studyAccumulator = 0; // reset accumulator after break
+                        continue;
+                    }
+
+                    // Schedule Subject
+                    if (subjectIndex >= subjects.length) subjectIndex = 0; // Loop if time remains
+                    
+                    let sessionDuration = Math.min(60, minPerSubject, totalMin); // Max 60 mins per block
+                    if (sessionDuration <= 0) break;
+
+                    let sessionEnd = new Date(currentTime.getTime() + sessionDuration * 60000);
+                    let currentSub = subjects[subjectIndex];
+                    let icon = currentSub === 'Chemistry' ? '🧪' : currentSub === 'Mathematics' ? '📐' : currentSub === 'Biology' ? '🧬' : '📝';
+
+                    scheduleHtml += `
+                        <div class="timetable-row">
+                            <div class="time-col">⏱️ ${formatTime(currentTime)} - ${formatTime(sessionEnd)}</div>
+                            <div class="task-col">
+                                <strong style="color: var(--primary);">${icon} ${currentSub}</strong><br>
+                                <span style="font-size: 0.9rem; color: var(--text-light);">Deep work session. Focus on understanding concepts or solving numericals.</span>
+                            </div>
+                        </div>
+                    `;
+
+                    currentTime = sessionEnd;
+                    totalMin -= sessionDuration;
+                    studyAccumulator += sessionDuration;
+                    minPerSubject -= (sessionDuration - (minPerSubject - sessionDuration > 0 ? 0 : minPerSubject)); // Adjust remaining time for this subject roughly
+                    subjectIndex++;
+                }
+
+                scheduleHtml += `
+                     <div class="timetable-row">
+                        <div class="time-col">🎯 ${formatTime(currentTime)}</div>
+                        <div class="task-col"><strong>Session Complete!</strong> Review what you've learned.</div>
+                    </div>
+                `;
+
+                resultBlock.innerHTML = scheduleHtml;
+                resultBlock.style.display = 'block';
+                
+                // Scroll to result smoothly
+                resultBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        };
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+
+    </script>
+</body>
+</html>
